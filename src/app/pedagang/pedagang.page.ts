@@ -4,24 +4,14 @@ import { OverlayEventDetail } from '@ionic/core/components';
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-pedagang',
+  templateUrl: './pedagang.page.html',
+  styleUrls: ['./pedagang.page.scss'],
 })
-export class HomePage {
+export class PedagangPage {
   @ViewChild(IonModal) modal: any;
-  constructor(private _api: ApiService, private _router : Router) {
-    this._api.tampilBarang().subscribe(
-      (res: any) => {
-        this.hasil = res;
-      },
-      (error: any) => {
-        console.log('Gagal', error);
-      }
-    );
-
+  constructor(private _api: ApiService, private _router: Router) {
     this._api.tampilPedagang().subscribe(
       (res: any) => {
         this.pedagang = res;
@@ -30,35 +20,19 @@ export class HomePage {
         console.log('Gagal', error);
       }
     );
-
   }
-  pedagang: any;
-  hasil: any;
-  nama: any;
-  harga: any;
-  stok: any;
-  modalTerbuka: any;
+
+  pedagang : any
   barangEdit : any
-  idpedagang : any
-  modalTerbukaPedagang : any
+  modalTerbuka : any
+  namapedagang : any
 
-  bukaModal(data : any){
-    this.barangEdit = data
-    this.modalTerbuka = true;
+  dataBarang(){
+    this._router.navigate(['/home'])
   }
 
-  dataPedagang(){
-    this._router.navigate(['/pedagang']);
-  }
-
-  tambahBarang() {
-    let data = {
-      idpedagang: this.idpedagang,
-      nama: this.nama,
-      harga: this.harga,
-      stok: this.stok,
-    };
-    this._api.tambahBarang(data).subscribe(
+  tambahPedagang(){
+    this._api.tambahPedagang(this.namapedagang).subscribe(
       (res: any) => {
         console.log('berhasil', res);
         window.location.reload();
@@ -68,14 +42,8 @@ export class HomePage {
       }
     );
   }
-  editBarang(item: any) {
-    let data = {
-      idbarang: item.idbarang,
-      nama: item.namabarang,
-      harga: item.hargabarang,
-      stok: item.stokbarang,
-    };
-    this._api.editBarang(data).subscribe(
+  hapusPedagang(idpedagang : any){
+    this._api.hapusPedagang(idpedagang).subscribe(
       (res: any) => {
         window.location.reload();
       },
@@ -84,8 +52,8 @@ export class HomePage {
       }
     );
   }
-  hapusBarang(id: any) {
-    this._api.hapusBarang(id).subscribe(
+  editPedagang(data : any){
+    this._api.editPedagang(data).subscribe(
       (res: any) => {
         window.location.reload();
       },
@@ -93,6 +61,12 @@ export class HomePage {
         console.log('Gagal', error);
       }
     );
+  }
+
+
+  bukaModal(data : any){
+    this.barangEdit = data
+    this.modalTerbuka = true;
   }
 
   cancel() {

@@ -1,7 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title> Kelola Barang </ion-title>
+    <ion-button slot="end" (click)="dataPedagang()" fill="clear"> Data Pedagang </ion-button>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -16,6 +18,14 @@
         <ion-input [(ngModel)]="harga" type="text" placeholder="Harga Barang"></ion-input>
       </ion-item>
       <ion-item>
+          <ion-label>Pilih Pedagang</ion-label>
+          <ion-select [(ngModel)]="idpedagang" placeholder="Pilih Pedagang">
+            <ion-select-option *ngFor="let pedagang of pedagang" [value]="pedagang.idpedagang">
+              {{ pedagang.namapedagang }}
+            </ion-select-option>
+          </ion-select>
+      </ion-item>
+      <ion-item>
         <ion-label>Stok Barang</ion-label>
         <ion-input [(ngModel)]="stok" type="text" placeholder="Stok Barang"></ion-input>
       </ion-item>
@@ -25,11 +35,20 @@
   <ion-item-divider>
     <ion-label>Daftar Barang</ion-label>
   </ion-item-divider>
+  <ion-item>
+    <ion-label>Nama Barang</ion-label>
+    <ion-label>Harga Barang</ion-label>
+    <ion-label>Stok Barang</ion-label>
+    <ion-label>Nama Pedagang</ion-label>
+    <ion-label>Hapus</ion-label>
+    <ion-label>Edit</ion-label>
+  </ion-item>
   <ion-content>
     <ion-item *ngFor="let item of hasil" >
       <ion-label>{{ item.namabarang }}</ion-label>
       <ion-label>Rp.{{ item.hargabarang }}</ion-label>
       <ion-label>{{ item.stokbarang }}</ion-label>
+      <ion-label>{{ item.namapedagang }}</ion-label>
       <ion-label>
         <ion-icon (click)="hapusBarang(item.idbarang)" slot="start" name="trash"></ion-icon>
       </ion-label>
