@@ -1,0 +1,7 @@
+{
+  "name": "alat toko bangunan",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
